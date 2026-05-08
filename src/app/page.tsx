@@ -2,7 +2,6 @@ import { RaceListDisplay } from "@/components/race-data-display";
 import { RaceData } from "@/constants/race";
 import { db_firestore } from "@/db/firebaseAdmin";
 import { DocumentData, Timestamp } from "firebase-admin/firestore";
-import Image from "next/image";
 
 const documentDataToRaceData = (docData: DocumentData): RaceData | undefined => {
     try {
