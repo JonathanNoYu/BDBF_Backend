@@ -1,4 +1,8 @@
 export function msToTime(duration) {
+    if (duration < 100) {
+        return '00:00.0'
+    }
+
     var milliseconds = parseInt((duration%1000)/100)
         , seconds = parseInt((duration/1000)%60)
         , minutes = parseInt((duration/(1000*60))%60)
