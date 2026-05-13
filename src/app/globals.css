@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+button:disabled {
+  opacity: 0.4; /* Dims the button */
+  background-color: #cccccc; /* Optional: adds a gray tint */
+  cursor: not-allowed;
+  pointer-events: none; /* Prevents interactions */
+}
+
+button {
+  opacity: 1;
+  cursor: pointer;
+}

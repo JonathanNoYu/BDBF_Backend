@@ -1,4 +1,5 @@
 export type RaceData = { 
+    id: string;
     schedule_timestamp: string; 
     race_num: number; 
     completed_time_ms: string[]; 
@@ -20,6 +21,9 @@ export function raceEqualRace(r1: RaceData, r2: RaceData): boolean {
         && (r1.race_num == r2.race_num)
         && (r1.teams.reduce((acc, curr, ind) => {
             return acc && curr == r2.teams[ind]
+        }, true))
+        && (r1.completed_time_ms.reduce((acc, curr, ind) => {
+            return acc && curr == r2.completed_time_ms[ind]
         }, true))
 }
 

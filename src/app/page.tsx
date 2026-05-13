@@ -3,7 +3,7 @@ import { RaceData } from "@/constants/race";
 import { db_firestore } from "@/db/firebaseAdmin";
 import { DocumentData, Timestamp } from "firebase-admin/firestore";
 
-const documentDataToRaceData = (docData: DocumentData): RaceData | undefined => {
+const documentDataToRaceData = (docData: DocumentData, docId: string): RaceData | undefined => {
     try {
         let scheduleTimestamp = new Timestamp(docData?.schedule_timestamp.seconds, docData?.schedule_timestamp.nanoseconds).toDate().toLocaleString(undefined, {
             year: '2-digit',
@@ -17,6 +17,7 @@ const documentDataToRaceData = (docData: DocumentData): RaceData | undefined => 
         let teamArray: string[] = docData?.teams
         let raceColor = (timeArray && timeArray.length == 0) ? "#9e9156" : "#49b42e"
         return {
+            id: docId,
             schedule_timestamp: scheduleTimestamp,
             race_num: raceNum,
             completed_time_ms: timeArray,
@@ -24,14 +25,13 @@ const documentDataToRaceData = (docData: DocumentData): RaceData | undefined => 
             background_color: raceColor
         }
     } catch (err) {
-        console.log(err)
         return
     }
 }
 
 async function loadRaces(): Promise<RaceData[]> {
     const snapshot = await db_firestore.collection('races').get()
-    const raceData = snapshot.docs.map((doc) => documentDataToRaceData(doc.data()))
+    const raceData = snapshot.docs.map((doc) => documentDataToRaceData(doc.data(), doc.id))
     let noUndefinedRaces = raceData.filter((race) => race != undefined)
     return noUndefinedRaces
 }
