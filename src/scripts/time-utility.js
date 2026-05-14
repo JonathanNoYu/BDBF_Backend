@@ -1,3 +1,12 @@
+import { MILLISECOND_PER_SECOND, MINUTES_PER_HOURS, SECONDS_PER_MINUTE } from "@/constants/time-dates";
+
+/**
+ * 
+ * Turns a duration in milliseconds into a string of HH:MM:SS format
+ * 
+ * @param {string} duration - integer number in milliseconds 
+ * @returns string in HH:MM:SS format
+ */
 export function msToTime(duration) {
     if (duration < 100) {
         return '00:00.0'
@@ -18,4 +27,18 @@ export function msToTime(duration) {
     }
     
     return minutes + ":" + seconds + "." + milliseconds;
+}
+
+/**
+ * 
+ * Assumes time is in formate HH:MM:SS returns the time in milliseconds
+ * 
+ * @param {string} time 
+ * returns number/integer in milliseconds
+ */
+export function timeToMS (time) {
+    timeArr = time.split(':')
+    return (timeArr[0] * MILLISECOND_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOURS) 
+         + (timeArr[1] * MILLISECOND_PER_SECOND * SECONDS_PER_MINUTE) 
+         + (timeArr[2] * MILLISECOND_PER_SECOND)
 }
