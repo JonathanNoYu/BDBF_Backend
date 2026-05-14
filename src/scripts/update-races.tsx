@@ -59,10 +59,10 @@ export const handleUpdateRacesWithDelay = async (races: RaceData[], delayMillSec
                     hour: "numeric",
                     minute: "2-digit",
                 })}
-                revalidatePath(`/`);
             } catch (err) {
                 console.log(err)
             }
         }
     }
+    revalidatePath(`/`);
 }
