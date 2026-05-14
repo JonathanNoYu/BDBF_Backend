@@ -36,3 +36,7 @@ button {
   opacity: 1;
   cursor: pointer;
 }
+
+.w-80 {
+  width: 80%;
+}

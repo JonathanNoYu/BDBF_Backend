@@ -40,12 +40,11 @@ export default async function Home() {
   const races = await loadRaces()
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <div className="flex flex-col items-center text-center sm:items-start sm:text-left w-full">
-          <h1 className="text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Race Data
-          </h1>
-          <RaceListDisplay races={races}/>
+      <main className="flex flex-1 w-80 flex-col items-center justify-between py-8 px-16 bg-white dark:bg-black sm:items-start">
+        <div className="flex flex-row items-center text-center sm:items-start sm:text-left w-full">
+          <RaceListDisplay races={races}>
+            <button className="">Thing</button>
+          </RaceListDisplay>
         </div>
       </main>
     </div>
