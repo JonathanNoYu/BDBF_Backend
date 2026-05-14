@@ -116,17 +116,17 @@ export function RaceListDisplay({ children, races }: RaceListDisplayProps) {
             <h1 className="text-start text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
                 Race Data
             </h1>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", paddingRight: "20" }}>
-                <div style={{ display: "flex", flexDirection: 'column', gap: 6 }}>
+            <div className="flex flex-row justify-between w-full">
+                <div className="flex flex-col gap-2">
                     {races.map((race, index) => <RaceDataDisplay race={race} key={index} selectFunc={() => setSelectedRace(race)} />)}
                 </div>
-                <div className="flex flex-col" style={{ maxWidth: "300px" }}>
+                <div className="flex flex-col ml-2 w-fit" style={{ maxWidth: "300px" }}>
                     {children}
                     {
                         (selectedRace) ?
                             <SelectEditRaceDisplay race={selectedRace} />
                             :
-                            <p style={{ fontSize: '20px' }}>Click on a race to select a race to edit!!</p>
+                            <p className="text-xl font-bold">Click on a race to select a race to edit!!</p>
                     }
                 </div>
             </div>

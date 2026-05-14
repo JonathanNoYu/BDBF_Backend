@@ -34,10 +34,10 @@ export function msToTime(duration) {
  * Assumes time is in formate HH:MM:SS returns the time in milliseconds
  * 
  * @param {string} time 
- * returns number/integer in milliseconds
+ * @returns number/integer in milliseconds
  */
 export function timeToMS (time) {
-    timeArr = time.split(':')
+    var timeArr = time.split(':')
     return (timeArr[0] * MILLISECOND_PER_SECOND * SECONDS_PER_MINUTE * MINUTES_PER_HOURS) 
          + (timeArr[1] * MILLISECOND_PER_SECOND * SECONDS_PER_MINUTE) 
          + (timeArr[2] * MILLISECOND_PER_SECOND)

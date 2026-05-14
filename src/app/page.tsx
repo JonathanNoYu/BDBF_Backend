@@ -1,6 +1,8 @@
+import { DelayForm } from "@/components/delay-form";
 import { RaceListDisplay } from "@/components/race-data-display";
 import { RaceData } from "@/constants/race";
 import { db_firestore } from "@/db/firebaseAdmin";
+import { handleUpdateRacesWithDelay } from "@/scripts/update-races";
 import { DocumentData, Timestamp } from "firebase-admin/firestore";
 
 const documentDataToRaceData = (docData: DocumentData, docId: string): RaceData | undefined => {
@@ -38,12 +40,15 @@ async function loadRaces(): Promise<RaceData[]> {
 
 export default async function Home() {
   const races = await loadRaces()
+
+  const handleDelay = handleUpdateRacesWithDelay.bind(null, races) 
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-80 flex-col items-center justify-between py-8 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex flex-row items-center text-center sm:items-start sm:text-left w-full">
           <RaceListDisplay races={races}>
-            <button className="">Thing</button>
+            <DelayForm races={races} />
           </RaceListDisplay>
         </div>
       </main>

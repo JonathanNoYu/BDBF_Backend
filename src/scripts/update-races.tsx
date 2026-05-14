@@ -1,6 +1,7 @@
 'use server'
 
 import { RaceData, raceEqualRace } from "@/constants/race"
+import { MILLISECOND_PER_CENTISECOND, MILLISECOND_PER_SECOND, SECONDS_PER_MINUTE } from "@/constants/time-dates"
 import { db_firestore } from "@/db/firebaseAdmin"
 import { Timestamp } from "firebase-admin/firestore"
 import { revalidatePath } from "next/cache"
@@ -34,15 +35,15 @@ export const handleUpdateRace = async (pastRace: RaceData, updatedRace: RaceData
     }    
 }
 
-export const handleUpdateRacesWithDelay = async (races: RaceData[], delayMillSec: number, startingDate?: Date) => {
-    for (let idx = 0; idx < races.length; idx++) {
+export const handleUpdateRacesWithDelay = async (races: RaceData[], delayMillSec:number) => {
+    let startingDate = new Date('4/12/26, 7:22 PM')
+    console.log(delayMillSec)
+    // Runs only if delay is more than a minute
+    for (let idx = 0; idx < races.length && delayMillSec >= (MILLISECOND_PER_SECOND * SECONDS_PER_MINUTE); idx++) {
         let thisRace = races[idx]
         let scheduleDate = new Date(thisRace.schedule_timestamp)
-        // If there is no starting date, assume it is for dates in the future from now
-        if (!startingDate) startingDate = new Date(Date.now())
-
         // Schedule Date is valid and in the future compared to starting date
-        if (scheduleDate.toString() != 'Invalid Date' && (+scheduleDate > +startingDate)) {
+        if (scheduleDate.toString() != 'Invalid Date' && (+scheduleDate >= +startingDate)) {
             let newScheduleDate = new Date(scheduleDate.getTime() + delayMillSec)
             const updatedData = {
                 race_num: thisRace.race_num,
